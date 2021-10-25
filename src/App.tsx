@@ -4,6 +4,7 @@ import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'react-toastify/dist/ReactToastify.css';
 import Main from './main';
+import NowWhat from './components/NowWhat';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
 
@@ -26,6 +27,7 @@ const App = () => (
     <CssBaseline />
     <Wrapper>
       <Header />
+      <NowWhat />
       <Main />
       <ToastContainer />
     </Wrapper>

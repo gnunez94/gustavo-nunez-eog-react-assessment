@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   createStyles,
   makeStyles,
@@ -13,7 +13,8 @@ import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 
 type AppProps = {
-  metrics: string[]
+  metrics: string[],
+  addedMetrics: Function,
 };
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -52,7 +53,7 @@ function getStyles(metric: string, personName: string[], theme: Theme) {
   };
 }
 
-export default ({ metrics }: AppProps): JSX.Element => {
+export default ({ metrics = [], addedMetrics }: AppProps): JSX.Element => {
   const classes = useStyles();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
@@ -60,6 +61,10 @@ export default ({ metrics }: AppProps): JSX.Element => {
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setPersonName(event.target.value as string[]);
   };
+
+  useEffect(() => {
+    addedMetrics(personName);
+  }, [personName]);
 
   return (
     <FormControl className={classes.formControl}>
