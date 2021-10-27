@@ -1,4 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit';
+// import { TimeSeries } from 'pondjs';
 
 type MeasurementInfo = {
   at: BigInt,
@@ -39,8 +40,16 @@ const metricsSlice = createSlice({
         { ...item }
       )) || [];
 
+      // const series = new TimeSeries({
+      //   name: metric,
+      //   columns: ['time', 'value', 'unit'],
+      //   points: [[1635305296775, 224.71, 'F']],
+      // });
+
+      // console.log(series);
+
       // console.log('slice', metricId, metricMeasurements);
-      metricMeasurements.push(
+      metricMeasurements.unshift(
         { at: action.payload.at, value: action.payload.value, unit: action.payload.unit },
       );
       state.measurements = {
