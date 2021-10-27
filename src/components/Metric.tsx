@@ -4,11 +4,12 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
-// import { useSelector } from 'react-redux';
+// import { useAppSelector } from '../store';
 // import Packs from "../../store/packs";
 
 type AppProps = {
   metric: string,
+  value: Number,
 };
 
 const useStyles = makeStyles({
@@ -19,18 +20,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default ({ metric }:AppProps) => {
+export default ({ metric, value }:AppProps) => {
   const classes = useStyles();
-  //   const getLastKnownMeasurement = useMemo(
-  //     Packs.measurements.selectors.makeNumOfTodosWithIsDoneSelector
-  //   );
-  // const value = useSelector(state => getLastKnownMeasurement(state, metric));
 
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography variant="h6">{metric}</Typography>
-        <Typography variant="h3">45</Typography>
+        <Typography variant="h3">{value}</Typography>
       </CardContent>
     </Card>
   );

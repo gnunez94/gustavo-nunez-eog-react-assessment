@@ -3,7 +3,7 @@ import {
   useSubscription,
   gql,
 } from '@apollo/client';
-import { setMetrics } from '../store/slices';
+import { setMetrics, setMeasurements } from '../store/slices';
 import { useAppDispatch } from '../store';
 
 const getMetricsQuery = gql`
@@ -30,8 +30,10 @@ const getMetrics = () => {
 };
 
 const latestMetrics = () => {
-  const { data } = useSubscription(MEASUREMENT_SUBSCRIPTION);
-  console.log('measurement', data?.newMeasurement);
+  const { loading, data = {} } = useSubscription(MEASUREMENT_SUBSCRIPTION);
+  const dispatch = useAppDispatch();
+
+  if (!loading) dispatch(setMeasurements(data.newMeasurement));
 };
 
 export { getMetrics, latestMetrics };

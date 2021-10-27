@@ -7,6 +7,7 @@ import Main from './main';
 import NowWhat from './components/NowWhat';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
+import { getMetrics, latestMetrics } from './api';
 
 const theme = createTheme({
   palette: {
@@ -22,16 +23,20 @@ const theme = createTheme({
   },
 });
 
-const App = () => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <Wrapper>
-      <Header />
-      <NowWhat />
-      <Main />
-      <ToastContainer />
-    </Wrapper>
-  </MuiThemeProvider>
-);
+const App = () => {
+  getMetrics();
+  latestMetrics();
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Wrapper>
+        <Header />
+        <NowWhat />
+        <Main />
+        <ToastContainer />
+      </Wrapper>
+    </MuiThemeProvider>
+  );
+};
 
 export default App;
