@@ -1,11 +1,8 @@
-// import React, { useMemo } from 'react';
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
-// import { useAppSelector } from '../store';
-// import Packs from "../../store/packs";
 
 type AppProps = {
   metric: string,
