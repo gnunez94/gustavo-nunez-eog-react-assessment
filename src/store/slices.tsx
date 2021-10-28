@@ -1,11 +1,11 @@
 import { createSlice, current } from '@reduxjs/toolkit';
-// import { TimeSeries } from 'pondjs';
+import { timeSeries, TimeSeries } from 'pondjs';
 
-type MeasurementInfo = {
-  at: BigInt,
-  value: String,
-  unit: String,
-};
+// type MeasurementInfo = {
+//   at: BigInt,
+//   value: String,
+//   unit: String,
+// };
 
 type Measurement = {
   oil?: any,
@@ -31,30 +31,31 @@ const metricsSlice = createSlice({
       state.metrics = action.payload;
     },
     setMeasurements: (state, action) => {
-      const { measurements }: InitialState = current(state);
+      const { measurements } = current(state);
       const { metric } : any = action.payload;
 
       const metricId: keyof typeof measurements = metric as keyof typeof measurements;
-      const metricMeasurements:
-      Array<MeasurementInfo> = measurements[metricId]?.map((item: MeasurementInfo) => (
-        { ...item }
-      )) || [];
 
-      // const series = new TimeSeries({
-      //   name: metric,
-      //   columns: ['time', 'value', 'unit'],
-      //   points: [[1635305296775, 224.71, 'F']],
-      // });
+      const metricMeasurements = measurements[metricId] || timeSeries({
+        name: metric,
+        columns: ['time', 'value', 'unit'],
+        points: [],
+      });
 
-      // console.log(series);
+      const series = timeSeries({
+        name: metric,
+        columns: ['time', 'value', 'unit'],
+        points: [[action.payload.at, action.payload.value, action.payload.unit]],
+      }) as TimeSeries<any>;
 
-      // console.log('slice', metricId, metricMeasurements);
-      metricMeasurements.unshift(
-        { at: action.payload.at, value: action.payload.value, unit: action.payload.unit },
-      );
+      const test = TimeSeries.timeSeriesListMerge({
+        name: metric,
+        seriesList: [metricMeasurements as any, series],
+      }) as TimeSeries<any>;
+
       state.measurements = {
         ...measurements,
-        [action.payload.metric]: metricMeasurements,
+        [action.payload.metric]: test,
       };
     },
   },

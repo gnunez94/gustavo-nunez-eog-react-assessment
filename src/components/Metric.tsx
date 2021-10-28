@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 type AppProps = {
   metric: string,
-  value: Number,
+  value: string,
 };
 
 const useStyles = makeStyles({
