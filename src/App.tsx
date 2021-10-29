@@ -3,9 +3,11 @@ import { ToastContainer } from 'react-toastify';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'react-toastify/dist/ReactToastify.css';
+import Main from './main';
+// import NowWhat from './components/NowWhat';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
-import NowWhat from './components/NowWhat';
+import { getMetrics, latestMetrics } from './api';
 
 const theme = createTheme({
   palette: {
@@ -21,15 +23,19 @@ const theme = createTheme({
   },
 });
 
-const App = () => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <Wrapper>
-      <Header />
-      <NowWhat />
-      <ToastContainer />
-    </Wrapper>
-  </MuiThemeProvider>
-);
+const App = () => {
+  getMetrics();
+  latestMetrics();
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Wrapper>
+        <Header />
+        <Main />
+        <ToastContainer />
+      </Wrapper>
+    </MuiThemeProvider>
+  );
+};
 
 export default App;
