@@ -7,7 +7,7 @@ import Main from './main';
 // import NowWhat from './components/NowWhat';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
-import { getMetrics, latestMetrics } from './api';
+import { getMetrics } from './api';
 
 const theme = createTheme({
   palette: {
@@ -25,7 +25,6 @@ const theme = createTheme({
 
 const App = () => {
   getMetrics();
-  latestMetrics();
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
