@@ -24,9 +24,9 @@ const MEASUREMENT_SUBSCRIPTION = gql`
 `;
 
 const getMetrics = () => {
-  const { data = {} } = useQuery(getMetricsQuery);
+  const { loading, data = {} } = useQuery(getMetricsQuery);
   const dispatch = useAppDispatch();
-  dispatch(setMetrics(data.getMetrics));
+  if (!loading) dispatch(setMetrics(data.getMetrics));
 };
 
 const latestMetrics = () => {
